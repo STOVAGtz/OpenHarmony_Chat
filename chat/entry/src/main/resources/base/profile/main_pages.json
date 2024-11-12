@@ -1,0 +1,9 @@
+{
+  "src": [
+    "pages/Login",
+    "pages/Register",
+    "pages/Main",
+    "pages/AddGroupChat",
+    "pages/AddFriends"
+  ]
+}
