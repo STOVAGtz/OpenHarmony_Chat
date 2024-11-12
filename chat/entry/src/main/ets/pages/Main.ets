@@ -1,6 +1,7 @@
 import { router } from '@kit.ArkUI';
 import { http } from '@kit.NetworkKit';
 import { BusinessError } from '@kit.BasicServicesKit';
+//import List from '@ohos.util.List';
 
 class MyButtonStyle implements ContentModifier<ButtonConfiguration> {
   iconpath: string = ''
@@ -92,11 +93,15 @@ struct head {
           .bindMenu(this.MyMenu())
       }
       .width('100%')
-
       .backgroundColor(0xCCCCCC)
       .alignItems(VerticalAlign.Top)
     }
 }
+class RouteTemp{
+  message: string = ''
+  friend_list: Array<string> = new Array()
+}
+const params: RouteTemp = router.getParams() as RouteTemp;
 
 @Entry
 @Component
@@ -110,6 +115,7 @@ struct Index {
         TabContent() {
           Flex({direction:FlexDirection.Column}) {
             head({ currentTab: '消息' })
+
           }
         }
         .tabBar('消息')
@@ -117,6 +123,48 @@ struct Index {
         TabContent() {
           Flex({direction:FlexDirection.Column}) {
             head({ currentTab: '联系人' })
+            Row(){
+              Image($r('app.media.search'))
+                .width('15%')
+                .height('8%')
+              Text('群聊')
+                .width('15%')
+                .height('8%')
+              //Text(params.message)
+            }
+            List(){
+              ForEach(params.friend_list,(item:string)=>{
+                ListItem() {
+                  Row() {
+                    Button({type:ButtonType.Normal}){
+                      Row() {
+                        Blank()
+                          .width('3%')
+                        Image($r('app.media.addchaticon'))
+                          .width('11%')
+                          .height('86%')
+                        Blank()
+                          .width('3%')
+                        Text(item)
+                          .width('83%')
+                          .height('100%')
+                      }
+                      .width('100%')
+                      .height('100%')
+                      .onClick(()=>{
+                        console.log(item)
+                      })
+                    }
+                    .width('100%')
+                    .height('100%')
+                    .backgroundColor(0xFFFFFF)
+                  }
+                  .width('100%')
+                  .height('8%')
+                }
+              })
+            }
+            .scrollBar(BarState.Auto)
           }
         }
         .tabBar('联系人')

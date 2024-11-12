@@ -114,7 +114,8 @@ struct Index {
                 extraData: JSON.stringify({
                   username: this.username,
                   password: this.password,
-                })
+                }),
+                expectDataType: http.HttpDataType.OBJECT
               },
               (err: BusinessError, data: http.HttpResponse) => {
                 if (!err) {
@@ -124,17 +125,22 @@ struct Index {
                   }));
                   console.info('code:' + JSON.stringify(data.responseCode));
                   let responseCode = data.responseCode;
-                  httpRequest.destroy();
                   if (responseCode==200) {
-                    router.pushUrl({
-                      url: 'pages/Main'
+                    router.replaceUrl({
+                      url: 'pages/Main',
+                      params: JSON.parse(JSON.stringify(data.result))
                     }).then(() => {
                       console.info('page jump succeed')
                     }).catch(() => {
                       console.info('page jump failed')
                     })
+                    //console.log(JSON.parse(JSON.stringify(data.result)))
+                    //console.log(data.result.message)
+                    httpRequest.destroy();
                   } else{
                     this.iswarningvisiable = true;
+                    //console.log(JSON.stringify(data.resultType))
+                    //console.log(JSON.parse(JSON.stringify(data.result)).message)
                   }
                 } else {
                   console.error('error:' + JSON.stringify(err));
