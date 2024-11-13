@@ -4,6 +4,7 @@
     "pages/Register",
     "pages/Main",
     "pages/AddGroupChat",
-    "pages/AddFriends"
+    "pages/AddFriends",
+    "pages/SendMessage"
   ]
 }

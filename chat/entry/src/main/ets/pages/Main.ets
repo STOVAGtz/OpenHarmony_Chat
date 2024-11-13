@@ -103,6 +103,10 @@ class RouteTemp{
 }
 const params: RouteTemp = router.getParams() as RouteTemp;
 
+class ChatInfo{
+  user_id: string = ''
+}
+
 @Entry
 @Component
 struct Index {
@@ -153,6 +157,13 @@ struct Index {
                       .height('100%')
                       .onClick(()=>{
                         console.log(item)
+                        let chatinfo: ChatInfo = {
+                          user_id: item
+                        }
+                        router.pushUrl({
+                          url: 'pages/SendMessage',
+                          params: chatinfo
+                        })
                       })
                     }
                     .width('100%')
